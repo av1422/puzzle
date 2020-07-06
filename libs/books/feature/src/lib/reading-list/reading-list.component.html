@@ -8,6 +8,9 @@
       <div class="reading-list-item--details--author">
         {{ b.authors.join(',') }}
       </div>
+      <div class="reading-list-item--details--finish" *ngIf="b?.finished === true">
+        Book Reading Finished on {{b.finishedDate}}
+      </div>
     </div>
     <div>
       <button
@@ -17,6 +20,19 @@
         (click)="removeFromReadingList(b)"
       >
         <mat-icon>remove_circle</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        color="warn"
+        [attr.aria-label]="b.finished ? 'Reading Completed' : 'Still Reading'"
+        [title]="b.finished ? 'Reading Completed' : 'Still Reading'"
+        (click)="finishInReadingList(b)"
+        [disabled]="b?.finished === true"
+      >
+        <mat-icon *ngIf="b?.finished === true">lock</mat-icon>
+        <mat-icon *ngIf="!b?.finished">lock_open</mat-icon>
       </button>
     </div>
   </div>
